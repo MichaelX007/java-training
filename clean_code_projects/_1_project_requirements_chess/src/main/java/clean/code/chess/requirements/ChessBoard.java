@@ -12,11 +12,26 @@ public class ChessBoard {
 
     }
 
+    public boolean getColor(int xCoordinatte, int yCoordinate, PieceColor color) {
+        return pieces[xCoordinatte][yCoordinate].getPieceColor() != color;
+    }
+
     public void Add(Pawn pawn, int xCoordinate, int yCoordinate, PieceColor pieceColor) {
-        throw new UnsupportedOperationException("Need to implement ChessBoard.add()");
+        if (IsLegalBoardPosition(xCoordinate, yCoordinate) && pieces[xCoordinate][yCoordinate] == null) {
+            pawn.setXCoordinate(xCoordinate);
+            pawn.setYCoordinate(yCoordinate);
+            pieces[xCoordinate][yCoordinate] = pawn;
+        } else {
+            pawn.setXCoordinate(-1);
+            pawn.setYCoordinate(-1);
+        }
+        //throw new UnsupportedOperationException("Need to implement ChessBoard.add()");
     }
 
     public boolean IsLegalBoardPosition(int xCoordinate, int yCoordinate) {
-        throw new UnsupportedOperationException("Need to implement ChessBoard.IsLegalBoardPosition()");
+        // Ar fi trebuit mai mare strict, altfel este o tabla 7*7, nu 8*8
+        return !(xCoordinate >= MAX_BOARD_WIDTH || xCoordinate < 0 ||
+                 yCoordinate >= MAX_BOARD_HEIGHT || yCoordinate < 0);
+        //throw new UnsupportedOperationException("Need to implement ChessBoard.IsLegalBoardPosition()");
     }
 }

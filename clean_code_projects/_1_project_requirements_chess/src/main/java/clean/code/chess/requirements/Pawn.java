@@ -44,7 +44,32 @@ public class Pawn {
     }
 
     public void Move(MovementType movementType, int newX, int newY) {
-        throw new UnsupportedOperationException("Need to implement Pawn.Move()") ;
+        if (movementType == MovementType.MOVE && newX != xCoordinate)
+            return;
+        if (this.pieceColor == PieceColor.BLACK) {
+            if (movementType == MovementType.MOVE && newY == yCoordinate - 1 &&
+                newY >= 0 && newX == xCoordinate) {
+                this.setXCoordinate(newX);
+                this.setYCoordinate(newY);
+            }
+            if (movementType == MovementType.CAPTURE && newY == yCoordinate - 1 && Math.abs(newX - xCoordinate) == 1 &&
+                    newY >= 0 && newX >= 0 && chessBoard.getColor(newX, newY, PieceColor.BLACK)) {
+                this.setXCoordinate(newX);
+                this.setYCoordinate(newY);
+            }
+        } else {
+            if (movementType == MovementType.MOVE && newY == yCoordinate + 1 && chessBoard.IsLegalBoardPosition(newX, newY) &&
+                    newY <= 7 && newX == xCoordinate) {
+                this.setXCoordinate(newX);
+                this.setYCoordinate(newY);
+            }
+            if (movementType == MovementType.CAPTURE && newY == yCoordinate + 1 && Math.abs(newX - xCoordinate) == 1 &&
+                    newY <= 7 && newX >= 0 && chessBoard.getColor(newX, newY, PieceColor.WHITE)) {
+                this.setXCoordinate(newX);
+                this.setYCoordinate(newY);
+            }
+        }
+        // throw new UnsupportedOperationException("Need to implement Pawn.Move()") ;
     }
 
     @Override
